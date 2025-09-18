@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML canvas tag.</canvas>
+
+<canvas id="myCanvas2" width="200" height="100" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML canvas tag.</canvas>
+
+<canvas id="myCanvas3" width="200" height="100" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "red";
+ctx.fillRect(0, 0, 100, 50);
+
+var ctx = c.getContext("2d");
+ctx.fillStyle = "RGBA(30,144,255,0.5)";
+ctx.fillRect(30, 20, 100, 50);
+
+
+var c = document.getElementById("myCanvas2");
+var ctx = c.getContext("2d");
+ctx.moveTo(20,20);
+ctx.lineTo(80,20);
+ctx.lineTo(100,50);
+ctx.lineTo(160,50);
+ctx.strokeStyle = "red";
+ctx.stroke();
+
+var c = document.getElementById("myCanvas3");
+var ctx = c.getContext("2d");
+
+
+var grd = ctx.createRadialGradient(60, 50, 10, 60, 50, 40);
+grd.addColorStop(0, "yellow");
+grd.addColorStop(1, "green");
+
+ctx.beginPath();
+ctx.fillStyle = grd;
+ctx.arc(60,50,40,0,2*Math.PI);
+ctx.fill();
+
+ctx.strokeStyle = "green";
+ctx.lineWidth = 5; // 可選擇性設置邊框寬度
+ctx.stroke(); // 繪製邊框
+
+ctx.fillStyle = "black";
+ctx.font = "20px Arial";
+ctx.fillText("Hi", 60, 40);
+
+</script>
+
+</body>
+</html>

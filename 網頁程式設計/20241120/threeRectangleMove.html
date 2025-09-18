@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body onload="startGame()">
+
+<script>
+let squares = [];
+let isRunning = false;
+let start_stop = false;
+let draggingSquare = null; // 被拖曳的正方形
+let offsetX = 0; // 滑鼠與正方形左上角的偏移
+let offsetY = 0;
+let isDragging = false; // 標記是否正在拖曳
+let temp_draggingSquare = true;
+
+function startGame() {
+    gameArea.start();
+    createSquares();
+}
+
+const gameArea = {
+    canvas: document.createElement("canvas"),
+    start: function () {
+        this.canvas.addEventListener("mousedown", mouseDownHandler);
+        this.canvas.addEventListener("mousemove", mouseMoveHandler);
+        this.canvas.addEventListener("mouseup", mouseUpHandler);
+        if (!start_stop) {
+            start_stop = true;
+            this.canvas.width = 480;
+            this.canvas.height = 270;
+            this.context = this.canvas.getContext("2d");
+            document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+            this.interval = null;
+        } else {
+            squares.forEach((square) => {
+                square.isPaused = false;
+            });
+        }
+    },
+    clear: function () {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop: function () {
+        squares.forEach((square) => {
+            square.isPaused = true;
+        });
+    },
+    reset: function () {
+        start_stop = true;
+        clearInterval(this.interval);
+        this.stop();
+        this.clear();
+        squares = [];
+        createSquares();
+    }
+};
+
+function Square(x, y, size, color) {
+    this.x = x;
+    this.y = x;
+    this.size = size;
+    this.color = color;
+    this.speedX = Math.random() < 0.5 ? 2 : -2;
+    this.speedY = Math.random() < 0.5 ? 2 : -2;
+    this.isPaused = false;
+
+    this.draw = function () {
+        const ctx = gameArea.context;
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+    };
+
+    this.updatePosition = function () {
+        if (!this.isPaused) {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // 邊界檢測與反彈
+            if (this.x <= 0 || this.x + this.size >= gameArea.canvas.width) {
+                this.speedX = -this.speedX;
+            }
+            if (this.y <= 0 || this.y + this.size >= gameArea.canvas.height) {
+                this.speedY = -this.speedY;
+            }
+        }
+        this.draw();
+    };
+
+    this.togglePause = function () {
+        this.isPaused = !this.isPaused;
+    };
+
+    this.resume = function () {
+        this.isPaused = false;
+    };
+
+    this.isInside = function (mouseX, mouseY) {
+        return (
+            mouseX >= this.x &&
+            mouseX <= this.x + this.size &&
+            mouseY >= this.y &&
+            mouseY <= this.y + this.size
+        );
+    };
+}
+
+function createSquares() {
+    squares.push(new Square(50, 50, 50, "red"));
+    squares.push(new Square(150, 150, 50, "yellow"));
+    squares.push(new Square(200, 100, 50, "blue"));
+}
+
+function updateGameArea() {
+    gameArea.clear();
+    squares.forEach((square) => square.updatePosition());
+}
+
+function start() {
+    if (!isRunning) {
+        isRunning = true;
+        squares.forEach((square) => square.resume()); // 重設所有正方形為繼續運動
+        gameArea.interval = setInterval(updateGameArea, 20);
+    }
+    gameArea.start();
+}
+
+function stop() {
+    gameArea.stop();
+}
+
+function reset() {
+    isRunning = false;
+    gameArea.reset();
+}
+
+
+let mouseDownTime = 0; // 記錄滑鼠按下的時間
+
+let first_down = true;
+
+function mouseDownHandler(e) {
+    const rect = gameArea.canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // 記錄按下的時間
+    if(first_down){
+        first_down = false;
+        mouseDownTime = Date.now();
+    }
+
+    // 檢查滑鼠是否點擊在某個正方形內
+    draggingSquare = squares.find((square) => square.isInside(mouseX, mouseY));
+    if (draggingSquare) {
+        // 設置拖曳的偏移量
+        offsetX = mouseX - draggingSquare.x;
+        offsetY = mouseY - draggingSquare.y;
+        isDragging = true; // 開始拖曳
+        temp_draggingSquare = draggingSquare.isPaused;
+        draggingSquare.isPaused = true; // 暫停移動
+    }
+}
+
+function mouseUpHandler(e) {
+    const rect = gameArea.canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // 計算滑鼠按下與鬆開的時間差
+    const mouseUpTime = Date.now();
+    const timeDifference = mouseUpTime - mouseDownTime;
+    first_down = true;
+
+    if (draggingSquare) {
+        if (isDragging && timeDifference > 150) {
+            // 如果是拖曳（時間差較長），結束拖曳並恢復移動
+            draggingSquare.isPaused = temp_draggingSquare;
+            draggingSquare = null; // 清除拖曳目標
+            isDragging = false; // 重置拖曳狀態
+        } else if (timeDifference <= 150) {
+            // 如果是單擊（時間差短），切換暫停狀態
+            draggingSquare.togglePause();
+            draggingSquare = null;
+            isDragging = false; // 重置拖曳狀態
+        }
+    }
+}
+
+function mouseMoveHandler(e) {
+    if (draggingSquare && isDragging) {
+        const rect = gameArea.canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // 更新拖曳正方形的位置
+        draggingSquare.x = mouseX - offsetX;
+        draggingSquare.y = mouseY - offsetY;
+
+        // 即時重新繪製畫布
+        gameArea.clear();
+        squares.forEach((square) => square.draw());
+    }
+}
+
+/*
+
+// 滑鼠事件處理函數
+function mouseDownHandler(e) {
+    const rect = gameArea.canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // 檢查滑鼠是否點擊在某個正方形內
+    draggingSquare = squares.find((square) => square.isInside(mouseX, mouseY));
+    if (draggingSquare) {
+        // 設置拖曳的偏移量
+        offsetX = mouseX - draggingSquare.x;
+        offsetY = mouseY - draggingSquare.y;
+        isDragging = true; // 開始拖曳
+        temp_draggingSquare = draggingSquare.isPaused
+        draggingSquare.isPaused = true; // 暫停移動
+    }
+}
+
+function mouseMoveHandler(e) {
+    if (draggingSquare && isDragging) {
+        const rect = gameArea.canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // 更新拖曳正方形的位置
+        draggingSquare.x = mouseX - offsetX;
+        draggingSquare.y = mouseY - offsetY;
+
+        // 即時重新繪製畫布
+        gameArea.clear();
+        squares.forEach((square) => square.draw());
+    }
+}
+
+function mouseUpHandler(e) {
+    if (draggingSquare) {
+        if (isDragging) {
+            // 結束拖曳並恢復移動
+            draggingSquare.isPaused = temp_draggingSquare;
+            draggingSquare = null; // 清除拖曳目標
+            isDragging = false; // 重置拖曳狀態
+        } else {
+            // 如果不是拖曳（單擊），切換暫停狀態
+            draggingSquare.togglePause();
+            draggingSquare = null;
+        }
+    }
+}
+
+*/
+</script>
+
+<br>
+<button onclick="start()">Start</button>
+<button onclick="stop()">Stop</button>
+<button onclick="reset()">Reset</button>
+
+</body>
+</html>

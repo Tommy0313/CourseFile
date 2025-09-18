@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game</title>
+    <style>
+        canvas {
+            border: 2px solid black;
+            display: block;
+            margin: 0 auto;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .game-over {
+            font-size: 2em;
+            color: red;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Tetris-like Game</h1>
+    <canvas id="gameCanvas" width="300" height="600"></canvas>
+    <div class="controls">
+        <button id="startButton">Start</button>
+        <button id="pauseButton">Pause</button>
+        <button id="resetButton">Reset</button>
+        <button id="leftButton">Left</button>
+        <button id="rightButton">Right</button>
+        <button id="rotateButton">Rotate</button>
+        <button id="speedUpButton">Speed +</button>
+        <button id="speedDownButton">Speed -</button>
+    </div>
+    <div class="game-over" id="gameOver">Game Over</div>
+    <script src="script.js"></script>
+</body>
+</html>

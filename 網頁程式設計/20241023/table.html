@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="function.js"></script>
+    <style>
+        table{
+            width: 200px;
+            border: solid black 1px;
+            background-color: rgb(253, 253, 113);
+        }
+        td{
+            text-align: center;
+            border:1px solid white;
+        }
+        tr{
+            height: 100px;
+        }
+        .but{
+            width: 50px;
+            height: 30px;
+        }
+        .a{
+            background-color: rgb(33, 32, 32);
+            border:1px solid white;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<table id="table">
+    <tr>
+        <th scope="col", class="a">Math</th>
+        <th scope="col", class="a">English</th>
+        <th scope="col", class="a">Programming</th>
+    </tr>
+    <tr>
+        <td>90</td>
+        <td>60</td>
+        <td>80</td>
+    </tr>
+    <tr>
+        <td>80</td>
+        <td>86</td>
+        <td>98</td>
+    </tr>
+</table>
+<p>Change The Table Width</p>
+<button type="button" onclick="changeTableWidth200()">200px</button>
+<button type="button" onclick="changeTableWidth500()">500px</button>
+<p>Change The Border and the Spacing Width</p>
+<button type="button" onclick="changeTableBorderSpacing('1px')">1px</button>
+<button type="button" onclick="changeTableBorderSpacing('10px')">10px</button>
+<button type="button" onclick="changeTableBorderSpacing('20px')">20px</button>
+<p>Change The Table Color</p>
+<button type="button" style="background-color: green;" class="but" onclick="changeTableColor('green')"></button>
+<button type="button" style="background-color: blue;" class="but" onclick="changeTableColor('blue')"></button>
+<button type="button" style="background-color: purple;" class="but" onclick="changeTableColor('purple')"></button>
+<button type="button" style="background-color: orange;" class="but" onclick="changeTableColor('orange')"></button>
+<br>
+<br>
+<button type="button" onclick="reset()">reset</button>
+</body>
+</html>

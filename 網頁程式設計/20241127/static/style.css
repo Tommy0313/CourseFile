@@ -1,0 +1,35 @@
+p {
+    font-size: medium;
+    font-style: italic;
+    color: black;
+}
+bold {
+    font-weight: bold;
+    font-style: italic;
+    color: black;
+}
+h1 {
+    font-weight: bold;
+    font-size: xx-large;
+    font-style: italic;
+    color: gray;
+    text-align: center;
+}
+h2 {
+    font-weight: bold;
+    font-size: x-large;
+    font-style: italic;
+    color: red;
+}
+ul.a {
+    list-style-type: circle;
+}
+ul.b {
+    list-style-type: square;
+}
+ol.c {
+    list-style-type: upper-roman;
+}
+ol.d {
+    list-style-type: lower-alpha;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.Lenna {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(75%);
+  border: 5px solid black;
+}
+.container {
+  position: relative;
+  width: 200px;
+}
+
+.image {
+  border-radius: 50%;
+  display: block;
+  width: 200px;
+  height: 200px;
+  transition: .5s ease;
+}
+
+.container:hover .image {
+  filter: blur(4px);
+  opacity: 1;
+}
+.container:hover .text {
+  opacity: 1;
+}
+.text{
+  color: green;
+  font-size: 20px;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+}
+
+</style>
+</head>
+<body>
+
+<p>Convert the image to grayscale:</p>
+
+<img src="Lenna.jpg" class="Lenna" alt="Pineapple" width="300" height="300">
+<div class="container">
+    <img src="Lenna.jpg" alt="Avatar" class="image">
+    <div class="text">Tommy Huang</div>
+</div>
+
+<p><strong>Note:</strong> The filter property is not supported in Internet Explorer, Edge 12, or Safari 5.1 and earlier.</p>
+
+</body>
+</html>

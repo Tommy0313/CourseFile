@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/hw00" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw00/OOP2024f_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw00/OOP2024f_hw/out/build/x64-Debug/_deps/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw00/oop2024f_110590453_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw00/oop2024f_110590453_hw/out/build/x64-Debug/_deps/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw01/OOP2024f_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw01/oop2024f_110590453_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw01/oop2024f_110590453_hw/out/build/x64-Debug/_deps/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw02/OOP2024f_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw02/oop2024f_110590453_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw02/oop2024f_110590453_hw/out/build/x64-Debug/_deps/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw03/OOP2024f_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw03/oop2024f_110590453_hw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hw03/oop2024f_110590453_hw/cmake-build-debug/_deps/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/midterm/OOP2024f_midterm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/midterm/oop2024f_110590453_hw" vcs="Git" />
+  </component>
+</project>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "red";
+ctx.fillRect(0, 0, 100, 50);
+
+var ctx = c.getContext("2d");
+ctx.fillStyle = "RGBA(30,144,255,0.5)";
+ctx.fillRect(30, 20, 100, 50);
+
+ctx.fillStyle = "black";
+ctx.font = "15px Arial";
+ctx.fillText("Overlap", 40, 40);
+
+ctx.moveTo(0,55);
+ctx.lineTo(25,55);
+ctx.lineTo(25,75);
+ctx.lineTo(160,75);
+ctx.strokeStyle = "green";
+ctx.stroke();
+
+ctx.strokeStyle = 'purple';
+ctx.lineWidth = 5;
+
+// 畫 3/4 圓形框
+ctx.beginPath();
+ctx.arc(130, 20, 10, 1.0 * Math.PI, 0.5 * Math.PI); // 圓心(100, 100)，半徑80，角度0到1.5π
+ctx.stroke();
+
+
+</script>
+
+</body>
+</html>

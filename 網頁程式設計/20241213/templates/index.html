@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, 
+initial-scale=1.0">
+   <title>Hotel Booking</title>
+   <link rel="stylesheet" 
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootst
+rap.min.css">
+</head>
+<body>
+   <div class="container">
+       <h1>Welcome to Our Hotel</h1>
+       <a href="{{ url_for('booking') }}" class="btn 
+btn-primary">Book a Room</a>
+   </div>
+   <table class="table table-bordered mt-4">
+      <thead class="thead-light">
+          <tr>
+              <th>Guest Name</th>
+              <th>Room Number</th>
+              <th>Check-In Date</th>
+              <th>Check-Out Date</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for booking in bookings %}
+          <tr>
+              <td>{{ booking.guest_name }}</td>
+              <td>{{ booking.room_number }}</td>
+              <td>{{ booking.check_in_date }}</td>
+              <td>{{ booking.check_out_date }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</body>
+</html>

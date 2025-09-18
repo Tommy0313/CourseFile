@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body onload="startGame()">
+<script>
+
+var myGamePiece, myGamePiece2, myGamePiece3;
+var images = ["smile.jpg", "angry.jpg", "cry.jpg"]; // 圖片陣列
+var currentImageIndex = [0,0,0];
+
+function startGame() {
+    myObstacle  = new component1(100, 50, "green", 300, 120);
+    myGamePiece = new component(30, 30, images[0], 10, 120, "image", 0, myObstacle);
+    myGamePiece2 = new component(30, 30, images[0], 40, 80, "image", 1, myObstacle);
+    myGamePiece3 = new component(30, 30, images[0], 60, 50, "image", 2, myObstacle);
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas: document.createElement("canvas"),
+    start: function() {
+        this.canvas.width = 480;
+        this.canvas.height = 270;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+    },
+    clear: function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop: function() {
+        clearInterval(this.interval);
+    }
+}
+
+function component(width, height, color, x, y, type, index, myObstacle) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 1; // 設定初始速度
+    this.speedY = 1; 
+    this.x = x;
+    this.y = y;
+    this.update = function() {
+        var ctx = myGameArea.context;
+        if (type == "image") {
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // 碰到邊界時反彈並切換圖片
+        if (this.x <= 0 || this.x + this.width >= myGameArea.canvas.width) {
+            this.speedX = -this.speedX;
+            currentImageIndex[index] = (currentImageIndex[index] + 1) % images.length;
+            this.image.src = images[currentImageIndex[index]];
+        }
+        if (this.y <= 0 || this.y + this.height >= myGameArea.canvas.height) {
+            this.speedY = -this.speedY;
+            currentImageIndex[index] = (currentImageIndex[index] + 1) % images.length;
+            this.image.src = images[currentImageIndex[index]];
+        }
+        if (this.x >= myObstacle.x-this.width && this.x <= myObstacle.x+myObstacle.width){
+            if (this.y >= myObstacle.y-this.height && this.y <= myObstacle.y+myObstacle.height){
+                this.speedX = 0;
+                this.speedY = 0;
+                this.image.src = "cold.png";
+            }
+        }
+    }
+}
+
+function component1(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY + 1;        
+    }    
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.newPos();
+    myGamePiece.update();
+    myGamePiece2.newPos();
+    myGamePiece2.update();
+    myGamePiece3.newPos();
+    myGamePiece3.update();
+    myObstacle.update();
+}
+
+var state = 0
+
+function Start(){
+    if(state != 0){
+        state = 0;
+        myGameArea.start();
+    }
+}
+
+function Stop(){
+    state = 1;
+    myGameArea.stop();
+}
+
+function Reset(){
+    state = 0;
+    myGameArea.stop();
+    myGameArea.clear();
+    currentImageIndex = [0,0,0];
+    myObstacle  = new component1(100, 50, "green", 300, 120);
+    myGamePiece = new component(30, 30, images[0], 10, 120, "image", 0, myObstacle);
+    myGamePiece2 = new component(30, 30, images[0], 40, 80, "image", 1, myObstacle);
+    myGamePiece3 = new component(30, 30, images[0], 60, 50, "image", 2, myObstacle);
+    myGameArea.start();
+}
+
+</script>
+
+<br>
+<button onclick="Start()">Start</button>
+<button onclick="Stop()">Stop</button>
+<button onclick="Reset()">Reset</button>
+
+</body>
+</html>

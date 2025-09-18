@@ -1,0 +1,6 @@
+2025/01/07 16:46:14 [error] 41744#35024: *2 CreateFile() "C:\網頁程式設計\final\nginx-1.26.2/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2025/01/07 17:04:07 [notice] 32600#4104: signal process started
+2025/01/07 17:07:58 [emerg] 30332#12276: directive "root" is not terminated by ";" in C:\網頁程式設計\final\nginx-1.26.2/conf/nginx.conf:44
+2025/01/07 17:10:02 [emerg] 43772#42504: directive "root" is not terminated by ";" in C:\網頁程式設計\final\nginx-1.26.2/conf/nginx.conf:44
+2025/01/07 17:10:05 [emerg] 40328#8952: directive "root" is not terminated by ";" in C:\網頁程式設計\final\nginx-1.26.2/conf/nginx.conf:44
+2025/01/07 17:11:42 [emerg] 41044#50272: directive "root" is not terminated by ";" in C:\網頁程式設計\final\nginx-1.26.2/conf/nginx.conf:44

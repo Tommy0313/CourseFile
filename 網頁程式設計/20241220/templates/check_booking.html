@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery UI CSS for Datepicker -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="container mt-5">
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const bookingIdInput = document.querySelector('input[name="booking_id"]');
+            if (bookingIdInput && isNaN(bookingIdInput.value)) {
+                e.preventDefault();
+                alert("Booking ID must be numeric.");
+            }
+        });
+    </script>
+
+{% include 'layout/menu.html' %}
+<div class="container mt-5">
+    <h2 class="mb-4">Check Your Booking</h2>
+    <form method="POST" class="mb-4">
+        <div class="form-group">
+            <label for="booking_id">Booking ID</label>
+            <input type="text" class="form-control" name="booking_id" placeholder="Enter Booking ID">
+        </div>
+        <button type="submit" class="btn btn-success">Check</button>
+    </form>
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% elif booking %}
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            Booking Details
+        </div>
+        <div class="card-body">
+            <p><strong>Room Number:</strong> {{ booking.room.room_number }}</p>
+            <p><strong>Check-in Date:</strong> {{ booking.check_in_date }}</p>
+            <p><strong>Check-out Date:</strong> {{ booking.check_out_date }}</p>
+            <a href="{{ url_for('booking_details', booking_id=booking.booking_id) }}" class="btn btn-info btn-sm">View Details</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+
+</body>
+</html>

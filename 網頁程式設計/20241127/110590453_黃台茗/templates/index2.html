@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background-color: wheat;">
+    <h1>{{ title }}</h1>
+    <div style="display: flex;">
+        <div style="margin: 1%; width: 10%;">
+            <a href="https://www.w3schools.com/" title="w3school">
+                <img src="{{ url_for('static', filename='picture.jpg') }}" alt="None" width="100%">
+            </a>
+        </div>
+        <div>
+            <h2>EDUCATION</h2>
+            <ul class="b">
+                {% for edu in education %}
+                    <li><p><u>{{ edu.department }}</u> {{ edu.years }}</p></li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h2 id="C1">TECHNICAL SKILLS</h2>
+            <ol class="c">
+                {% for skill in technical_skills %}
+                    <li><p><bold>{{ skill }}</bold></p></li>
+                {% endfor %}
+            </ol>
+            <hr>
+            <h2>W3schools</h2>
+            <a href="#C1">Jump to TECHNICAL SKILLS</a>
+            <br>
+            <a href="https://www.w3schools.com/css/css_link.asp">Links</a>
+            <br>
+            <a href="mailto:tommyee0313@gmail.com" class="email-link">發送電子郵件</a>
+            <div style="height: 400%;"></div>
+        </div>
+    </div>
+</body>
+</html>
