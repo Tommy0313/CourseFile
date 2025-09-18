@@ -1,0 +1,32 @@
+set(SRC_FILES
+    Account.hpp
+    Bank.hpp
+    Money.hpp
+    BusinessAccount.hpp
+    PersonalAccount.hpp
+    Cheque.hpp
+    Deposit.hpp
+    Loan.hpp
+    Ticket.hpp
+)
+
+set(INCLUDE_FILES
+    Account.cpp
+    Bank.cpp
+    Money.cpp
+    BusinessAccount.cpp
+    PersonalAccount.cpp
+    Cheque.cpp
+    Deposit.cpp
+    Loan.cpp
+    Ticket.cpp
+)
+
+set(TEST_FILES
+    ut_money.cpp
+    ut_account.cpp
+    ut_bank_diff.cpp
+    ut_bank_easy.cpp
+    ut_ticket.cpp
+    Checker.hpp
+)
